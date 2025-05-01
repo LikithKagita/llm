@@ -1,0 +1,8 @@
+openai
+python-dotenv
+requests
+streamlit
+pandas
+plotly
+uuid
+ollama  # For local LLMs via Ollama
