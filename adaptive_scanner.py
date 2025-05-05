@@ -23,7 +23,7 @@ from llama_guard import (
 
 
 #load_dotenv()
-DEFAULT_OPENAI_API_KEY = st.secrets("OPENAI_API_KEY")
+DEFAULT_OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # Load prompt templates
 with open("template.json") as f:
