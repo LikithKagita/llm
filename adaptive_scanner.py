@@ -1,6 +1,7 @@
 # adaptive_scanner.py (Final GPT-4o Enhanced Version with Full Adaptation & No Limits)
 
 from openai import OpenAI
+import streamlit as st
 import json
 import os
 from typing import List, Dict
@@ -19,9 +20,20 @@ from llama_guard import (
     save_safety_report,
     test_llama_guard_connection,
 )
+guard_results = check_prompt_safety(prompt)
 
-load_dotenv()
-DEFAULT_OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+score = 1.0 if not guard_results.get("response_evaluation", {}).get("is_safe", True) else 0.0
+unsafe_categories = guard_results.get("unsafe_categories", [])
+
+result = {
+    "prompt": prompt,
+    "response": response,
+    "score": score,
+    "unsafe_categories": unsafe_categories
+}
+
+#load_dotenv()
+DEFAULT_OPENAI_API_KEY = st.secrets("OPENAI_API_KEY")
 
 # Load prompt templates
 with open("template.json") as f:
