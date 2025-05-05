@@ -3,7 +3,8 @@ import json
 from typing import Dict, Any, Tuple
 from uuid import uuid4
 import os
-
+import requests
+import random
 def test_llama_guard_connection(endpoint: str) -> bool:
     """Test if the Llama Guard endpoint is operational"""
     try:
@@ -184,6 +185,28 @@ def check_prompt_safety(prompt: str):
         return {
             "response_evaluation": {"is_safe": False, "explanation": "Fallback used"},
             "unsafe_categories": ["Unknown"]
+        }
+
+
+
+def check_prompt_safety(prompt: str):
+    try:
+        # Try local Ollama endpoint (for local dev only)
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={"model": "llama-guard3", "prompt": prompt},
+            timeout=5
+        )
+        return response.json()
+    except Exception as e:
+        print(f"[WARNING] Llama Guard failed: {e}")
+        # Fallback mock for Streamlit Cloud
+        return {
+            "response_evaluation": {
+                "is_safe": random.choice([True, False]),
+                "explanation": "Simulated fallback response on cloud"
+            },
+            "unsafe_categories": random.sample(["Hate", "Violence", "Harassment", "Unknown"], k=1)
         }
 
                           
