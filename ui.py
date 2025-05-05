@@ -8,9 +8,10 @@ import os
 import plotly.express as px
 
 # Load environment variables
-load_dotenv()
-default_openai_api_key = os.getenv("OPENAI_API_KEY")
-
+#load_dotenv()
+#default_openai_api_key = os.getenv("OPENAI_API_KEY")
+import streamlit as st
+api_key = st.secrets["OPENAI_API_KEY"]
 # Streamlit Config
 st.set_page_config(page_title="🗁️ LLM Vulnerability Scanner", layout="wide")
 st.title("🗁️ Adaptive LLM Vulnerability Scanner")
