@@ -174,3 +174,16 @@ def save_safety_report(attack_type: str, template: str, prompt: str, response: s
     
     print(f"Safety report saved to {file_path}")
     return file_path
+
+def check_prompt_safety(prompt: str):
+    try:
+        response = requests.post("http://localhost:11434", json={...})
+        return response.json()
+    except Exception as e:
+        print("Llama Guard failed:", e)
+        return {
+            "response_evaluation": {"is_safe": False, "explanation": "Fallback used"},
+            "unsafe_categories": ["Unknown"]
+        }
+
+                          
