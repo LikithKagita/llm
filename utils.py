@@ -6,9 +6,10 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-DEFAULT_OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
+#load_dotenv()
+#DEFAULT_OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+import streamlit as st
+api_key = st.secrets["OPENAI_API_KEY"]
 
 def generate_adaptive_prompt_with_llm(api_key: str, template: str, attack_type: str, previous_response: str = None, example_prompt: str = None) -> str:
     client = OpenAI(api_key=api_key or DEFAULT_OPENAI_API_KEY)
