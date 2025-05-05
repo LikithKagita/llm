@@ -20,17 +20,7 @@ from llama_guard import (
     save_safety_report,
     test_llama_guard_connection,
 )
-guard_results = check_prompt_safety(prompt)
 
-score = 1.0 if not guard_results.get("response_evaluation", {}).get("is_safe", True) else 0.0
-unsafe_categories = guard_results.get("unsafe_categories", [])
-
-result = {
-    "prompt": prompt,
-    "response": response,
-    "score": score,
-    "unsafe_categories": unsafe_categories
-}
 
 #load_dotenv()
 DEFAULT_OPENAI_API_KEY = st.secrets("OPENAI_API_KEY")
